@@ -1,8 +1,8 @@
-'use strict'
+'use strict';
 /**
  * Module Dependencies
- */
-const mongoose = require('mongoose')
+ */ 
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 let userSchema = new Schema({
@@ -26,7 +26,8 @@ let userSchema = new Schema({
     },
     email : {
         type: String,
-        default : ''
+        default : '',
+        unique : true
     },
     mobileNumber : {
         type : String,
@@ -35,7 +36,11 @@ let userSchema = new Schema({
     createdOn : {
         type: Date,
         default : ''
+    },
+    modifiedOn : {
+        type : Date,
+        default : ''
     }
 })
 
-mongoose.model('User',userSchema);
+module.exports = mongoose.model('User',userSchema);

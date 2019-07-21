@@ -1,13 +1,19 @@
-const appConfig = require('./../../config/appConfig')
-const controller = require('./../controllers/userController')
+const appConfig = require('./../../config/appConfig');
+const controller = require('./../controllers/userController');
+const authorizationMiddleWare = require('./../middlewares/auth');
 
 module.exports.setRouter = (app) =>{
     let baseUrl = `${appConfig.apiVersion}/users`;
 
     //defining routes
 
+    // app.get(`${baseUrl}/view/all`,authorizationMiddleWare.isAuthorized,controller.getAllUsers);
+
+    //Params : userId
+    // app.get(`${baseUrl}/view/:userId`,authorizationMiddleWare.isAuthorized,controller.getUserById);
+
     //params : firstName, lastName, email, mobileNumber, password
-    app.post(baseUrl+'/signup',controller.signUpFunction);
+    app.post(baseUrl+'/signup',authorizationMiddleWare.isAuthorized,controller.signUpFunction);
 
     /**
      * @apiGroup users
@@ -38,7 +44,7 @@ module.exports.setRouter = (app) =>{
     */
 
     //params : email, password
-    app.post(baseUrl+'/login',controller.loginFunction);
+    app.post(baseUrl+'/login',authorizationMiddleWare.isAuthorized,controller.loginFunction);
 
     /**
      * @apiGroup users
@@ -60,5 +66,5 @@ module.exports.setRouter = (app) =>{
     */
 
     //auth Token params : userId
-    app.post(baseUrl+'/logout', controller.logoutFunction);
+    app.post(baseUrl+'/logout',authorizationMiddleWare.isAuthorized, controller.logoutFunction);
 }

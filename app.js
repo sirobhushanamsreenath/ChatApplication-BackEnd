@@ -1,11 +1,12 @@
-const fs = require('fs')
-const errorHandler = require('./app/middlewares/appErrorHandler')
-const express = require('express')
-const apiConfig = require('./config/appConfig')
-const bodyParser = require('body-parser')
-const routeLogger = require('./app/middlewares/routeLogger')
-const logger = require('./app/libraries/responseLib')
-const helmet = require('helmet')
+const fs = require('fs');
+const errorHandler = require('./app/middlewares/appErrorHandler');
+const express = require('express');
+const apiConfig = require('./config/appConfig');
+const bodyParser = require('body-parser');
+const routeLogger = require('./app/middlewares/routeLogger');
+const logger = require('./app/libraries/responseLib');
+const helmet = require('helmet');
+const mongoose = require('mongoose');
 
 
 let app = express();

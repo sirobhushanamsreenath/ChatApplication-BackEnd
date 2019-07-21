@@ -1,5 +1,5 @@
-const logger = require('pino')
-const moment = require('moment')
+const logger = require('pino')();
+const moment = require('moment');
 
 //For capturing the information in the logger.
 let captureError = (errorMessage, errorOrigin, errorLevel) => {
