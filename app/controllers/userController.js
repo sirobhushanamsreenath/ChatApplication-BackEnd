@@ -263,7 +263,7 @@ let loginFunction = (req, res) => {
  */
 let logoutFunction = (req, res) => {
     authModel.findOneAndRemove({userId : req.user.userId})
-        .exex((err, user) => {
+        .exec((err, user) => {
             if(err){
                 console.log(err);
                 logger.captureError(err.message,'userController : logoutFunction()', 10);
@@ -273,7 +273,7 @@ let logoutFunction = (req, res) => {
                 let apiResponse = response.generate(true, 'User Logged Out (Or) Invalid User', 500, null);
                 res.send(apiResponse);
             } else {
-                let apiResponse = resonse.generate(false, 'User Logged Out Successfully', 200, null);
+                let apiResponse = response.generate(false, 'User Logged Out Successfully', 200, null);
                 res.send(apiResponse);
             }
         })
