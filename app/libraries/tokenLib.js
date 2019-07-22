@@ -43,9 +43,26 @@ let verifyClaim = (token, secretKey, callback) => {
     });
 } //end verify claim
 
+//Verify Claim without secret...
+let verifyClaimWithoutSecret = (token,callback) => {
+    //verify token symmetric
+    jwt.verify(token, secretKey, function(err, decoded) {
+        if(err){
+            console.log('error while verifying the token');
+            console.log(err);
+            callback(err, null);
+        } else{
+            console.log('User Verified');
+            callback(null, decoded);
+        }
+    });
+}
+//End Verify Claim without secret..
+
 
 //Module Exports
 module.exports = {
     generateToken : generateToken,
-    verifyClaim : verifyClaim
+    verifyClaim : verifyClaim,
+    verifyClaimWithoutSecret : verifyClaimWithoutSecret
 }; // End module exports

@@ -13,7 +13,7 @@ module.exports.setRouter = (app) =>{
     // app.get(`${baseUrl}/view/:userId`,authorizationMiddleWare.isAuthorized,controller.getUserById);
 
     //params : firstName, lastName, email, mobileNumber, password
-    app.post(baseUrl+'/signup',authorizationMiddleWare.isAuthorized,controller.signUpFunction);
+    app.post(baseUrl+'/signup',controller.signUpFunction);
 
     /**
      * @apiGroup users
@@ -44,7 +44,7 @@ module.exports.setRouter = (app) =>{
     */
 
     //params : email, password
-    app.post(baseUrl+'/login',authorizationMiddleWare.isAuthorized,controller.loginFunction);
+    app.post(baseUrl+'/login',controller.loginFunction);
 
     /**
      * @apiGroup users
@@ -66,5 +66,5 @@ module.exports.setRouter = (app) =>{
     */
 
     //auth Token params : userId
-    app.post(baseUrl+'/logout',authorizationMiddleWare.isAuthorized, controller.logoutFunction);
+    app.post(baseUrl+'/logout', controller.logoutFunction);
 }

@@ -254,7 +254,7 @@ let loginFunction = (req, res) => {
             console.log('errorhandler');
             console.log(err);
             res.status(err.status);
-            res.send(err);
+            // res.send(err);
         });
 }; //End Login Functionality
 
@@ -262,7 +262,7 @@ let loginFunction = (req, res) => {
  * Logout Functionality
  */
 let logoutFunction = (req, res) => {
-    authModel.findOneAndRemove({userId : req.user.userId})
+    authModel.findOneAndDelete({userId : req.body.userId})
         .exec((err, user) => {
             if(err){
                 console.log(err);
