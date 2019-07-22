@@ -25,7 +25,16 @@ let setServer = (server) =>{
                     socket.userId = currentUser.userId;
                     let fullName = `${currentUser.firstName} ${currentUser.lastName}`;
                     console.log(`${fullName} is online`);
-                    socket.emit(currentUser.userId,'You are online');
+                    //Making a list of all online users..
+                    let userObj = {userId : socket.userId, fullName : fullName};
+                    allOnlineUsers.push(userObj);
+                    console.log(allOnlineUsers);
+
+                    //Broadcasting
+                    socket.room = 'groupChat';
+                    //Joining groupChat room
+                    socket.join(socket.room);
+                    socket.to(socket.room).broadcast.emit('online-user-list', allOnlineUsers);
                 }                
             })
         });
@@ -37,7 +46,28 @@ let setServer = (server) =>{
             //unsubscribe the user from his own channel
             console.log('user is disconnected');
             console.log(socket.userId);
+            var removeIndex = allOnlineUsers.map(function(user){return user.userId;}).indexOf(socket.userId);
+            allOnlineUsers.splice(removeIndex,1);
+            console.log(allOnlineUsers);
+
+            //Disconnecting in Broadcast
+            socket.to(socket.room).broadcast.emit('online-user-list', allOnlineUsers);
+            socket.leave(socket.room);
         }); //End Disconnecting User
+
+        //Sending the chat message to the receiver
+        socket.on('chat-message', (data) => {
+            console.log('socket chat-message called..')
+            console.log(data);
+            console.log(data.receiverId);
+            myIo.emit(data.receiverId, data);
+        });
+
+        //Handling the typing event
+        socket.on('typing', (fullName) => {
+            console.log('typing event has been called..');
+            socket.to(socket.room).broadcast.emit('typing', fullName);
+        });
     })
 }
 

@@ -1,14 +1,14 @@
 //Connecting with sockets..
 const socket = io('http://localhost:8080');
-const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqd3RpZCI6IkFWYkY1NUV4MyIsImlhdCI6MTU2MzgyNDMwNDI2NywiZXhwIjoxNTYzOTEwNzA0LCJzdWIiOiJhdXRoVG9rZW4iLCJpc3MiOiJlZENoYXQiLCJkYXRhIjp7InVzZXJJZCI6IlROeFZ3UEFLQiIsImZpcnN0TmFtZSI6IlNyZWVuYXRoIiwibGFzdE5hbWUiOiJTaXJvYmh1c2hhbmFtIiwiZW1haWwiOiJzcmVlbmF0aDFAZ21haWwuY29tIiwibW9iaWxlTnVtYmVyIjoiMTIzNDU2Nzg5OSJ9fQ._mNepze2_sGaNKTmSPFcv5bgPrTdMbuziwAmJr1tEE4'
-const userId = 'TNxVwPAKB';
+const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqd3RpZCI6IkNCMXhxNHpqWiIsImlhdCI6MTU2MzgyNDI0ODY2NSwiZXhwIjoxNTYzOTEwNjQ4LCJzdWIiOiJhdXRoVG9rZW4iLCJpc3MiOiJlZENoYXQiLCJkYXRhIjp7InVzZXJJZCI6IlNpQUg4ekt4VSIsImZpcnN0TmFtZSI6IlNhY2hpbiIsImxhc3ROYW1lIjoiVGVuZHVsa2FyIiwiZW1haWwiOiJzYWNoaW4yQGdtYWlsLmNvbSIsIm1vYmlsZU51bWJlciI6IjEyMzQ1Njc4OTkifX0.GBmiRf5L0Pje1rxhW8L5N67Pj4AHj-D6_aaqpelTD3k';
+const userId = 'SiAH8zKxU';
 
 let chatMessage = {
     createdOn : Date.now(),
-    receiverId : 'SiAH8zKxU', //user 2 id here
-    recieverName : 'Sachin', //user 2 name here
+    receiverId : 'TNxVwPAKB', //user 2 id here
+    recieverName : 'S Sreenath', //user 2 name here
     senderId : userId,
-    senderName : 'S Sreenath'
+    senderName : 'Sachin Tendulkar'
 }
 
 let chatSocket = () => {
@@ -28,14 +28,14 @@ let chatSocket = () => {
         console.log('Online user list is updated. Someone came online or went offline');
         console.log(data);
     });
+
     //Sending the message
     $('#send').on('click', function() {
         let messageText = $('#messageToSend').val();
         chatMessage.message = messageText;
         socket.emit('chat-message', chatMessage);
-    })
+    });
 
-    
     $('#messageToSend').on('keypress', function() {
         socket.emit('typing', chatMessage.senderName);
     });
