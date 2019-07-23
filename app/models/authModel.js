@@ -7,20 +7,20 @@ const Schema = mongoose.Schema;
 const time = require('./../libraries/timeLib');
 
 const Auth = new Schema({
-    userId :{
-        type : String
-    },
-    authToken : {
-        type : String
-    },
-    tokenSecret : {
-        type : String
-    },
-    tokenGenerationTime : {
-        type : Date,
-        default : time.now()
-    }
+  userId: {
+    type: String
+  },
+  authToken: {
+    type: String
+  },
+  tokenSecret: {
+    type: String
+  },
+  tokenGenerationTime: {
+    type: Date,
+    default: time.now()
+  }
 });
 
 //Exporting module..
-module.exports = mongoose.model('Auth', Auth);
+mongoose.model = ('Auth', Auth);
