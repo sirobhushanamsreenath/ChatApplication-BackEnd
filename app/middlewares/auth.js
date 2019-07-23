@@ -1,6 +1,8 @@
 const logger = require('./../libraries/loggerInfo');
-const mongoose = require('mongoose');
-const authModel = require('../models/authModel');
+// const mongoose = require("mongoose");
+// console.log(typeof mongoose.model);
+const authModel = require('./../models/authModel');
+
 const response = require('./../libraries/responseLib');
 const check = require('./../libraries/checkLib');
 const token = require('./../libraries/tokenLib');

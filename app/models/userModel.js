@@ -42,5 +42,5 @@ let userSchema = new mongoose.Schema({
     default: ''
   }
 });
-// console.log(mongoose);
+
 mongoose.model = ('User', userSchema);

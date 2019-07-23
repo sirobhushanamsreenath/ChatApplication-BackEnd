@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 
-// const Schema = new mongoose.Schema;
-
 let chatModel = new mongoose.Schema({
   chatId: { type: String, unique: true, required: true },
   senderName: { type: String, default: '' },
