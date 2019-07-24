@@ -3,13 +3,13 @@
  */
 const mongoose = require('mongoose');
 const shortid = require('shortid');
-const time = require('./../libs/timeLib');
-const passwordLib = require('./../libs/generatePasswordLib');
-const response = require('./../libs/responseLib');
-const logger = require('./../libs/loggerLib');
-const validateInput = require('../libs/paramsValidationLib');
-const check = require('../libs/checkLib');
-const token = require('../libs/tokenLib');
+const time = require('./../libraries/timeLib');
+const passwordLib = require('./../libraries/generatePasswordLib');
+const response = require('./../libraries/responseLib');
+const logger = require('./../libraries/loggerInfo');
+const validateInput = require('../libraries/paramsValidationLib');
+const check = require('../libraries/checkLib');
+const token = require('../libraries/tokenLib');
 
 /* Models */
 const ChatModel = mongoose.model('Chat');
@@ -28,7 +28,7 @@ let getUsersChat = (req, res) => {
         check.isEmpty(req.query.senderId) ||
         check.isEmpty(req.query.receiverId)
       ) {
-        logger.info('parameters missing', 'getUsersChat handler', 9);
+        logger.captureInfo('parameters missing', 'getUsersChat handler', 9);
         let apiResponse = response.generate(
           true,
           'parameters missing.',
@@ -72,7 +72,11 @@ let getUsersChat = (req, res) => {
         .exec((err, result) => {
           if (err) {
             console.log(err);
-            logger.error(err.message, 'Chat Controller: getUsersChat', 10);
+            logger.captureError(
+              err.message,
+              'Chat Controller: getUsersChat',
+              10
+            );
             let apiResponse = response.generate(
               true,
               `error occurred: ${err.message}`,
@@ -81,7 +85,10 @@ let getUsersChat = (req, res) => {
             );
             reject(apiResponse);
           } else if (check.isEmpty(result)) {
-            logger.info('No Chat Found', 'Chat Controller: getUsersChat');
+            logger.captureInfo(
+              'No Chat Found',
+              'Chat Controller: getUsersChat'
+            );
             let apiResponse = response.generate(
               true,
               'No Chat Found',
@@ -127,7 +134,7 @@ let getGroupChat = (req, res) => {
   let validateParams = () => {
     return new Promise((resolve, reject) => {
       if (check.isEmpty(req.query.chatRoom)) {
-        logger.info('parameters missing', 'getUsersChat handler', 9);
+        logger.captureInfo('parameters missing', 'getUsersChat handler', 9);
         let apiResponse = response.generate(
           true,
           'parameters missing.',
@@ -158,7 +165,11 @@ let getGroupChat = (req, res) => {
         .exec((err, result) => {
           if (err) {
             console.log(err);
-            logger.error(err.message, 'Chat Controller: getUsersChat', 10);
+            logger.captureError(
+              err.message,
+              'Chat Controller: getUsersChat',
+              10
+            );
             let apiResponse = response.generate(
               true,
               `error occurred: ${err.message}`,
@@ -167,7 +178,10 @@ let getGroupChat = (req, res) => {
             );
             reject(apiResponse);
           } else if (check.isEmpty(result)) {
-            logger.info('No Chat Found', 'Chat Controller: getUsersChat');
+            logger.captureInfo(
+              'No Chat Found',
+              'Chat Controller: getUsersChat'
+            );
             let apiResponse = response.generate(
               true,
               'No Chat Found',
@@ -213,7 +227,7 @@ let markChatAsSeen = (req, res) => {
   let validateParams = () => {
     return new Promise((resolve, reject) => {
       if (check.isEmpty(req.query.chatIdCsv)) {
-        logger.info('parameters missing', 'markChatAsSeen handler', 9);
+        logger.captureInfo('parameters missing', 'markChatAsSeen handler', 9);
         let apiResponse = response.generate(
           true,
           'parameters missing.',
@@ -242,7 +256,11 @@ let markChatAsSeen = (req, res) => {
         (err, result) => {
           if (err) {
             console.log(err);
-            logger.error(err.message, 'Chat Controller: markChatAsSeen', 10);
+            logger.captureError(
+              err.message,
+              'Chat Controller: markChatAsSeen',
+              10
+            );
             let apiResponse = response.generate(
               true,
               `error occurred: ${err.message}`,
@@ -251,7 +269,10 @@ let markChatAsSeen = (req, res) => {
             );
             reject(apiResponse);
           } else if (result.n === 0) {
-            logger.info('No Chat Found', 'Chat Controller: markChatAsSeen');
+            logger.captureInfo(
+              'No Chat Found',
+              'Chat Controller: markChatAsSeen'
+            );
             let apiResponse = response.generate(
               true,
               'No Chat Found',
@@ -295,7 +316,7 @@ let countUnSeenChat = (req, res) => {
   let validateParams = () => {
     return new Promise((resolve, reject) => {
       if (check.isEmpty(req.query.userId)) {
-        logger.info('parameters missing', 'countUnSeenChat handler', 9);
+        logger.captureInfo('parameters missing', 'countUnSeenChat handler', 9);
         let apiResponse = response.generate(
           true,
           'parameters missing.',
@@ -325,7 +346,11 @@ let countUnSeenChat = (req, res) => {
       ChatModel.count(findQuery).exec((err, result) => {
         if (err) {
           console.log(err);
-          logger.error(err.message, 'Chat Controller: countUnSeenChat', 10);
+          logger.captureError(
+            err.message,
+            'Chat Controller: countUnSeenChat',
+            10
+          );
           let apiResponse = response.generate(
             true,
             `error occurred: ${err.message}`,
@@ -368,7 +393,7 @@ let findUnSeenChat = (req, res) => {
   let validateParams = () => {
     return new Promise((resolve, reject) => {
       if (check.isEmpty(req.query.userId)) {
-        logger.info('parameters missing', 'findUnSeenChat handler', 9);
+        logger.captureInfo('parameters missing', 'findUnSeenChat handler', 9);
         let apiResponse = response.generate(
           true,
           'parameters missing.',
@@ -404,7 +429,11 @@ let findUnSeenChat = (req, res) => {
         .exec((err, result) => {
           if (err) {
             console.log(err);
-            logger.error(err.message, 'Chat Controller: findUnSeenChat', 10);
+            logger.captureError(
+              err.message,
+              'Chat Controller: findUnSeenChat',
+              10
+            );
             let apiResponse = response.generate(
               true,
               `error occurred: ${err.message}`,
@@ -413,7 +442,10 @@ let findUnSeenChat = (req, res) => {
             );
             reject(apiResponse);
           } else if (check.isEmpty(result)) {
-            logger.info('No Chat Found', 'Chat Controller: findUnSeenChat');
+            logger.captureInfo(
+              'No Chat Found',
+              'Chat Controller: findUnSeenChat'
+            );
             let apiResponse = response.generate(
               true,
               'No Chat Found',
@@ -461,7 +493,7 @@ let findUserListOfUnseenChat = (req, res) => {
   let validateParams = () => {
     return new Promise((resolve, reject) => {
       if (check.isEmpty(req.query.userId)) {
-        logger.info(
+        logger.captureInfo(
           'parameters missing',
           'findUserListOfUnseenChat handler',
           9
@@ -488,7 +520,7 @@ let findUserListOfUnseenChat = (req, res) => {
       }).exec((err, senderIdList) => {
         if (err) {
           console.log(err);
-          logger.error(
+          logger.captureError(
             err.message,
             'Chat Controller: findUserListOfUnseenChat',
             10
@@ -501,7 +533,7 @@ let findUserListOfUnseenChat = (req, res) => {
           );
           reject(apiResponse);
         } else if (check.isEmpty(senderIdList)) {
-          logger.info(
+          logger.captureInfo(
             'No Unseen Chat User Found',
             'Chat Controller: findUserListOfUnseenChat'
           );
@@ -532,7 +564,7 @@ let findUserListOfUnseenChat = (req, res) => {
         .exec((err, result) => {
           if (err) {
             console.log(err);
-            logger.error(
+            logger.captureError(
               err.message,
               'Chat Controller: findUserListOfUnseenChat',
               10
@@ -545,7 +577,7 @@ let findUserListOfUnseenChat = (req, res) => {
             );
             reject(apiResponse);
           } else if (check.isEmpty(result)) {
-            logger.info(
+            logger.captureInfo(
               'No User Found',
               'Chat Controller: findUserListOfUnseenChat'
             );

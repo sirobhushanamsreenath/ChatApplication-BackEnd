@@ -7,11 +7,11 @@ const logger = require('./../libraries/loggerInfo');
 const validateInput = require('./../libraries/paramsValidationLib');
 const check = require('./../libraries/checkLib');
 const token = require('./../libraries/tokenLib');
-const AuthModel = require('./../models/authModel');
+const AuthModel = mongoose.model('Auth');
 
 /* Models */
 // const UserModel = mongoose.model("User");
-const UserModel = require('./../models/userModel');
+const UserModel = mongoose.model('User');
 
 /* Get all user Details */
 let getAllUser = (req, res) => {
@@ -78,7 +78,7 @@ let getSingleUser = (req, res) => {
 }; // end get single user
 
 let deleteUser = (req, res) => {
-  UserModel.findOneAndRemove({ userId: req.params.userId }).exec(
+  UserModel.findOneAndDelete({ userId: req.params.userId }).exec(
     (err, result) => {
       if (err) {
         console.log(err);
@@ -487,7 +487,7 @@ let loginFunction = (req, res) => {
  * function to logout user.
  * auth params: userId.
  */
-let logout = (req, res) => {
+let logoutFunction = (req, res) => {
   AuthModel.findOneAndRemove({ userId: req.user.userId }, (err, result) => {
     if (err) {
       console.log(err);
@@ -526,5 +526,5 @@ module.exports = {
   deleteUser: deleteUser,
   getSingleUser: getSingleUser,
   loginFunction: loginFunction,
-  logout: logout
+  logoutFunction: logoutFunction
 }; // end exports

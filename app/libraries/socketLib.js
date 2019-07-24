@@ -6,21 +6,23 @@ const mongoose = require('mongoose');
 const shortid = require('shortid');
 const logger = require('./loggerInfo');
 const events = require('events');
+const ChatModel = mongoose.model('Chat');
 const eventEmitter = new events.EventEmitter();
 
-const tokenLib = require('./tokenLib.js');
-const check = require('./checkLib.js');
-const response = require('./responseLib');
+const tokenLib = require('./tokenLib');
+const check = require('./checkLib');
+const response = require('../libraries/responseLib');
 const ChatModel = mongoose.model('Chat');
+// console.log(typeof ChatModel);
 
-const redisLib = require('./redisLib.js');
+const redisLib = require('./redisLib');
 
 let setServer = server => {
   //let allOnlineUsers = []
 
   let io = socketio.listen(server);
 
-  let myIo = io.of('/');
+  let myIo = io.of('');
 
   myIo.on('connection', socket => {
     console.log('on connection--emitting verify user');
@@ -108,7 +110,7 @@ let setServer = server => {
       }
     }); // end of on disconnect
 
-    socket.on('chat-msg', data => {
+    socket.on('chat-message', data => {
       console.log('socket chat-msg called');
       console.log(data);
       data['chatId'] = shortid.generate();
