@@ -4,7 +4,7 @@ const redis = require('redis');
 let client = redis.createClient();
 
 client.on('connect', () => {
-  console.log('Redis connection successfully opened');
+  console.log('Redis connection is successfully opened');
 });
 
 let getAllUsersInAHash = (hashName, callback) => {
